@@ -21,13 +21,26 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link active" href="/persons/new">Dashboard</a>
+					<a class="nav-link active" href="/">Dashboard</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 	<main>
-		
+		<h1>New Category</h1>
+		<form:form action="/addCategory" method="POST" modelAttribute="category">
+			<div class="form-group row mx-0">
+				<form:label path="name">Name</form:label>
+				<div class="col-sm-4">
+					<form:input type="text" path="name"/>
+				</div>
+			</div>
+			<div class="form-group row mx-0">
+				<div class="col-sm-4 offset-sm-1">
+					<input class="btn btn-success" type="submit" value="Create"/>
+				</div>
+			</div>
+		</form:form>
 	</main>
 </body>
 </html>

@@ -42,11 +42,7 @@ public class Product {
 	
 	public Product() {}
 	
-	public Product(String name, String description, List<Category> categories) {
-		this.name = name;
-		this.description = description;
-		this.categories = categories;
-	}
+	
 
 	public Long getId() {
 		return id;
@@ -96,14 +92,16 @@ public class Product {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<Category> getCategories() {
-		return categories;
-	}
+	
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
+	public void setCategories(List<Category> productsAndCategories) {
+		this.categories = productsAndCategories;
 	}
 	
+	
+	public List<Category> getCategories(){
+		return categories;
+	}
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date();

@@ -27,7 +27,32 @@
 		</div>
 	</nav>
 	<main>
-		
+		<h1>New Product</h1>
+		<form:form action="/addProduct" method="POST" modelAttribute="product">
+			<div class="form-group row mx-0">
+				<form:label path="name">Name:</form:label>
+				<div class="col-sm-4">
+					<form:input type="text" path="name"/>
+				</div>
+			</div>
+			<div class="form-group row mx-0">
+				<form:label path="description">Description:</form:label>
+				<div class="col-sm-4">
+					<form:textarea path="description" rows="3" col="10"/>
+				</div>
+			</div>
+			<div class="form-group row mx-0">
+				<form:label path="price">Price:</form:label>
+				<div class="col-sm-4">
+					<form:input type="number" path="price"/>
+				</div>
+			</div>
+			<div class="form-group row mx-0">
+				<div class="col-sm-4 offset-sm-1">
+					<input class="btn btn-success" type="submit" value="Create"/>
+				</div>
+			</div>
+		</form:form>
 	</main>
 </body>
 </html>

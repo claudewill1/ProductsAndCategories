@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="products")
+@Table(name="categories")
 public class Category {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,10 +38,7 @@ public class Category {
 	
 	public Category() {}
 	
-	public Category(String name, List<Product> products) {
-		this.name = name;
-		this.products = products;
-	}
+	
 
 	public Long getId() {
 		return id;

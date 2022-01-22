@@ -21,14 +21,46 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link active" href="/persons/new">Dashboard</a>
+					<a class="nav-link active" href="/">Dashboard</a>
 				</li>
-				
+				<li class="nav-item">
+					<a class="nav-link active" href="/category/new">New Category</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="/product/new">New Product</a>
+				</li>
 			</ul>
 		</div>
 	</nav>
-	<main>
+	<h1><c:out value="${selectedCategory.name}"/></h1>
+	<main class="mt-3 d-flex flex-row">
 		
+		<div class="col-6 flex-left">
+			<h4>Products</h4>
+			<ul class="offset-1">
+				<c:forEach items="${category.products}" var="product">
+					<li>${product.name}</li>
+				</c:forEach>
+			</ul>
+		</div>
+		<div class="col-4 flex-right">
+			<form:form action="/categories/addProduct" method="POST" modelAttribute="productCategory">
+				<form:input type="hidden" path="category" value="category.id"/>
+				<div class="form-group col-9">
+					<label class="col-form-label" for="product">Add Product</label>
+					<select class="form-control" name="product" id="product">
+						<c:forEach items="${listedProducts}" var="product">
+							<option value="${product.id}">${product.name}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="form-group mx-0">
+					<div class="col-3 offset-4">
+						<input class="btn btn-success" type="submit" value="Add"/>
+					</div>
+				</div>
+			</form:form>
+		</div>
 	</main>
 </body>
 </html>

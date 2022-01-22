@@ -30,34 +30,72 @@
 		</div>
 	</nav>
 	<main>
-		<h1>All Drivers</h1>
-		<table class="table table-dark table-striped">
-			<thead>
-				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>License Number</th>
-					<th>State</th>
-					<th>Expiration Date</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${persons}" var="person">
-					<tr>
-						<td>${person.firstName}</td>
-						<td>${person.lastName}</td>
-						<td>${person.license.licenseNumber}</td>
-						<td>${person.license.state}</td>
-						<td>${person.license.expirationDate}</td>
-						<td>
-							<a class="btn btn-success" href="/persons/${person.id}">Show</a>
-							<a class="btn btn-danger" href="/persons/delete/${person.id}">Delete</a>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<h1>All Products and Related Categories</h1>
+		<div class="row">
+			<div class="col-9">
+				<table class="table table-dark table-striped">
+					<thead>
+						<tr>
+							<th>Product Name</th>
+							<th>Price</th>
+							<th>Categories</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${products}" var="product">
+							<tr>
+								<td>${product.name}</td>
+								<td>${product.price}</td>
+								<td>
+									<ul>
+										<c:forEach items="${product.categories}" var="category">
+											<li>${category.name}</li>
+										</c:forEach>
+									</ul>
+								</td>
+								<td>
+									<a class="btn btn-success" href="/products/${product.id}">Show</a>
+									<a class="btn btn-danger" href="/products/delete/${product.id}">Delete</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<h3>All Categories and Related Products</h3>
+		<div class="row">
+			<div class="col-9">
+				<table class="table table-dark table-striped">
+					<thead>
+						<tr>
+							<th>Category Name</th>
+							<th>Products</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${categories}" var="category">
+							<tr>
+								<td>${category.name}</td>
+								<td>
+									<ul>
+										<c:forEach items="${category.products}" var="product">
+											<li>${product.name}</li>
+										</c:forEach>
+									</ul>
+								</td>
+								<td>
+									<a class="btn btn-success" href="/categories/${category.id}">Show</a>
+									<a class="btn btn-danger" href="/category/delete/${category.id}">Delete</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</main>
 </body>
 </html>

@@ -14,28 +14,46 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="products_categories")
 public class ProductCategory {
+
+	// I) Class Attributes
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(updatable=false)
+	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date createdAt;
+	@Column
+	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date updatedAt;
+	
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="product_id")
 	private Product product;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="category_id")
 	private Category category;
 	
-	public ProductCategory() {}
+	// II) Class Constructor Methods
+	
+	public ProductCategory() {
+	    
+	}
 	
 	public ProductCategory(Product product, Category category) {
-		this.product = product;
-		this.category = category;
+		 this.product = product;
+		 this.category = category;
 	}
+	
+	// III) Getter and Setters Methods
 
 	public Long getId() {
 		return id;
@@ -57,7 +75,7 @@ public class ProductCategory {
 		return updatedAt;
 	}
 
-	public void setUpdatedAT(Date updatedAt) {
+	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
@@ -77,12 +95,15 @@ public class ProductCategory {
 		this.category = category;
 	}
 	
-	@PrePersist
-	protected void onCreate() {
-		this.createdAt = new Date();
-	}
+	// IV) Lifecycle Callback Methods
+	
+    @PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+
 	@PreUpdate
-	protected void onUpdate() {
-		this.updatedAt = new Date();
-	}
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
 }

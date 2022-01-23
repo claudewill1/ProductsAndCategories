@@ -39,20 +39,20 @@
 			<h4>Products</h4>
 			<ul class="offset-1">
 				<c:forEach items="${category.products}" var="product">
-					<li>${product.name}</li>
+					<li><c:out value="${product.name}"/> </li>
 				</c:forEach>
 			</ul>
 		</div>
 		<div class="col-4 flex-right">
 			<form:form action="/categories/addProduct" method="POST" modelAttribute="productCategory">
-				<form:input type="hidden" path="category" value="category.id"/>
+				<form:input type="hidden" path="category" value="${category.id}"/>
 				<div class="form-group col-9">
 					<label class="col-form-label" for="product">Add Product</label>
-					<select class="form-control" name="product" id="product">
+					<form:select class="form-control" path="product">
 						<c:forEach items="${listedProducts}" var="product">
 							<option value="${product.id}">${product.name}</option>
 						</c:forEach>
-					</select>
+					</form:select>
 				</div>
 				<div class="form-group mx-0">
 					<div class="col-3 offset-4">

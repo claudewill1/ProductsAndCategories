@@ -38,29 +38,36 @@
 		<div class="col-6 flex-left">
 			<h4>Products</h4>
 			<ul class="offset-1">
-				<c:forEach items="${product.categoriess}" var="category">
-					<li>${category.name}</li>
+				<c:forEach items="${product.categories}" var="category">
+					<li><c:out value="${category.name}"/></li>
 				</c:forEach>
 			</ul>
 		</div>
-		<div class="col-4 flex-right">
-			<form:form action="/categories/addProduct" method="POST" modelAttribute="productCategory">
-				<form:input type="hidden" path="category" value="category.id"/>
-				<div class="form-group col-9">
-					<label class="col-form-label" for="category">Add Category</label>
-					<select class="form-control" name="product" id="product">
-						<c:forEach items="${listedCategories}" var="product">
-							<option value="${category.id}">${category.name}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="form-group mx-0">
-					<div class="col-3 offset-4">
-						<input class="btn btn-success" type="submit" value="Add"/>
-					</div>
-				</div>
-			</form:form>
-		</div>
+		<div class="col-3">
+				<form:form action="/products/addCategory" method="POST" modelAttribute="productCategory">
+			    
+ 			    	<!--  Hidden input for Product ID -->
+				    <form:input type="hidden" path="product" value="${ product.id }"/>
+				    
+					<!--  Category Selection Field -->
+			        <div class="form-group col-9">
+			        	<form:label class="col-form-label" path="category">Add Category:</form:label>
+			        	<form:select class="form-control" path="category">
+				        	<c:forEach items="${categoriesNotListed}" var="nonCat">
+				        		<form:option value="${nonCat.id}">${nonCat.name}</form:option>
+				        	</c:forEach>
+			        	</form:select>
+			        	<form:errors class="small" path="category"/>
+			        </div>
+				    
+					<!--  Submit Button -->
+				    <div class="form-group mx-0">
+				    	<div class="col-3 offset-5">
+				    		<input class = "btn btn-success" type="submit" value="Add"/>
+				    	</div>	
+			    	</div>
+			    </form:form>	
+			</div>
 	</main>
 </body>
 </html>

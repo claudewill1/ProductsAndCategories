@@ -48,30 +48,31 @@ public class ProductsController {
 	
 	// GET request fork showing detailed information on a product
 	@GetMapping("/products/{id}")
-	public String showProduct(@PathVariable("id") Long id, @ModelAttribute("product") ProductCategory productCategory, Model model) {
-		Product selectedProduct = productCategoryService.findProductById(id);
-		List<Category> categoriesListed = selectedProduct.getCategories();
-		List<Category> categoriesNotListed = productCategoryService.findCategoriesNotInProducts(selectedProduct);
+	public String showProduct(@PathVariable("id") Long id, @ModelAttribute("productCategory") ProductCategory productCategory, Model model) {
+		Product productSelected = productCategoryService.findProductById(id);
+		List <Category> categoriesListed = productSelected.getCategories();
+		List <Category> categoriesNotListed = productCategoryService.findCategoriesNotInProducts(productSelected);
 		
-		model.addAttribute("product",selectedProduct);
+		model.addAttribute("product", productSelected);
 		model.addAttribute("categoriesListed",categoriesListed);
 		model.addAttribute("categoriesNotListed",categoriesNotListed);
 		
 		return "showProduct.jsp";
-		
 	}
 	
 	// POST request to adding category to product
 	@PostMapping("/products/addCategory")
-	public String addCategoryToProduct(@ModelAttribute("productCategory") ProductCategory productCategory, BindingResult result) {
+	public String addProductToCategory(@ModelAttribute("productCategory") ProductCategory productCategory, BindingResult result) {
+		
 		if(result.hasErrors()) {
-			return "showProduct.jsp";
+			return "showCategory.jsp";
 		}
 		else {
 			productCategoryService.createProductCategory(productCategory);
-			Long id = productCategory.getCategory().getId();
-			return "redirect:/products/"+id;
+			Long id = productCategory.getProduct().getId();
+			return "redirect:/categories/"+id;
 		}
+				
 	}
 	// POST method to remove category from product
 	@PostMapping("/products/removeProduct")

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springboot.claude.models.Category;
@@ -46,31 +48,31 @@ public class CategoriesController {
 	}
 	
 	// GET request for showing information of a category in detail
-	@GetMapping("/categories/{id}")
-	public String showCategory(@PathVariable("id") Long id,@ModelAttribute("productCategory") ProductCategory productCategory, Model model) {
-		Category selectedCategory = productCategoryService.findCategoryById(id);
-		List<Product> listedProducts = this.productCategoryService.getAllProducts();
-		List<Product> productsNotListed = this.productCategoryService.findProductsNotInCategory(selectedCategory);
+	@RequestMapping("/categories/{id}")
+	public String showCategory(@PathVariable("id") Long id, @ModelAttribute("productCategory") ProductCategory productCategory, Model model) {
+		Category categorySelected = productCategoryService.findCategoryById(id);
+		List <Product> productsListed = categorySelected.getProducts();
+		List <Product> productsNotListed = productCategoryService.findProductsNotInCategory(categorySelected);
 		
-		model.addAttribute("selectedCategory",selectedCategory);
-		model.addAttribute("listedProducts",listedProducts);
+		model.addAttribute("category", categorySelected);
+		model.addAttribute("productsListed",productsListed);
 		model.addAttribute("productsNotListed",productsNotListed);
-		
 		return "showCategory.jsp";
-		
 	}
 	
 	// POST request to add product to category
-	@PostMapping("/categories/addProduct")
-	public String addProductToCategory(@ModelAttribute("productCategory") ProductCategory productCategory, BindingResult result) {
+	@RequestMapping(value="/products/addCategory", method=RequestMethod.POST)
+	public String addCategoryToProduct(@ModelAttribute("productCategory") ProductCategory productCategory, BindingResult result) {
+		
 		if(result.hasErrors()) {
-			return "showCategory.jsp";
+			return "showProduct.jsp";
 		}
 		else {
 			productCategoryService.createProductCategory(productCategory);
 			Long id = productCategory.getProduct().getId();
-			return "redirect:/categories/"+id;
+			return "redirect:/";
 		}
+				
 	}
 	// POST method to remove category from product
 	@PostMapping("/categories/removeProduct")

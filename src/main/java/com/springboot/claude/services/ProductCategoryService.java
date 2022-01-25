@@ -64,17 +64,19 @@ public class ProductCategoryService {
 		return this.productRepo.findByCategoriesNotContains(category);
 	}
 	// Add product to category
-	public void addProductToCategory(Product product,Category category) {
-		// get Product list from the category
+	public void addProductToCategory(Category category, Product product) {
+		// get Product list from the Category
 		List<Product> products = category.getProducts();
+		// Add selected Category to Product
 		products.add(product);
+		// Update DB
 		this.categoryRepo.save(category);
-	    
 	}
 	// Add category to product
-	public void addCategoryToProduct(Category category,Product product) {
-		// get category list from the product
+	public void addCategoryToProduct(Product product, Category category) {
+		// get Category list from the Product
 		List<Category> categories = product.getCategories();
+		// Add selected Category to Product
 		categories.add(category);
 		// Update DB
 		this.productRepo.save(product);
@@ -96,5 +98,9 @@ public class ProductCategoryService {
 	// delete productCategory
 	public void deleteProductCategory(Long id) {
 		this.productCategoryRepo.deleteById(id);
+	}
+	
+	public List<ProductCategory> findAllProductCategories1() {
+		return this.productCategoryRepo.findAll();
 	}
 }

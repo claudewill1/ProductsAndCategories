@@ -10,8 +10,8 @@ import com.springboot.claude.models.Product;
 
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
-	// get all products
-	List<Product> findAll();
-	// retrieve all products that aren ot categorized
-	List<Product> findByCategoriesNotContains(Category category);
+	// retrieves all products from the database
+    public List<Product> findAll();
+    // retrieves all products that are not categorized to a specific category
+    List<Product> findByCategoriesNotContains(Category category);
 }

@@ -32,18 +32,24 @@
 			</ul>
 		</div>
 	</nav>
-	<h1><c:out value="${selectedProduct.name}"/></h1>
-	<main class="mt-3 d-flex flex-row">
+	<main class="mt-3">
+	
+	 	<h1><c:out value="${product.name}"/></h1>
 		
-		<div class="col-6 flex-left">
-			<h4>Products</h4>
-			<ul class="offset-1">
-				<c:forEach items="${product.categories}" var="category">
-					<li><c:out value="${category.name}"/></li>
-				</c:forEach>
-			</ul>
-		</div>
-		<div class="col-3">
+		<div class="row">
+		
+			<!-- List of Categories linked to the Product -->
+			<div class="col-6">
+				<h4>Categories:</h4>
+				<ul class="offset-1">
+		        	<c:forEach items="${product.categories}" var="category">
+		            	<li>${category.name}</li>
+		        	</c:forEach>
+			    </ul>	
+			</div>
+			
+			<!-- Add Category Form-->
+			<div class="col-3">
 				<form:form action="/products/addCategory" method="POST" modelAttribute="productCategory">
 			    
  			    	<!--  Hidden input for Product ID -->
@@ -68,7 +74,8 @@
 			    	</div>
 			    </form:form>	
 			</div>
-	</main>
+		</div>
+		</main>
 </body>
 </html>
 </body>
